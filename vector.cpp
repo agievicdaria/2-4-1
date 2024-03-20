@@ -12,11 +12,11 @@ Vector::Vector(int n) {
     elements = new int[size];
 }
 
-Vector::Vector(const Vector& other) {
-    size = other.size;
+Vector::Vector(const Vector& secondVector) {
+    size = secondVector.size;
     elements = new int[size];
     for (int i = 0; i < size; ++i) {
-        elements[i] = other.elements[i];
+        elements[i] = secondVector.elements[i];
     }
 }
 
@@ -40,28 +40,21 @@ istream& operator>>(istream& in, Vector& vec) {
 }
 
 ostream& operator<<(ostream& out, const Vector& vec) {
-    out << "(";
-    for (int i = 0; i < vec.size; ++i) {
-        out << vec.elements[i];
-        if (i < vec.size - 1) {
-            out << ", ";
-        }
-    }
-    out << ")";
+    out << string(vec);
     return out;
 }
 
-Vector Vector::operator+(const Vector& other) const {
-    Vector result(size);
-    for (int i = 0; i < size; ++i) {
-        result.elements[i] = elements[i] + other.elements[i];
+Vector operator+(const Vector& firstVector, const Vector& secondVector) {
+    Vector result(firstVector.size);
+    for (int i = 0; i < firstVector.size; ++i) {
+        result.elements[i] = firstVector.elements[i] + secondVector.elements[i];
     }
     return result;
 }
 
-bool Vector::operator==(const Vector& other) const {
-    for (int i = 0; i < size; ++i) {
-        if (elements[i] != other.elements[i]) {
+bool operator==(const Vector& firstVector, const Vector& secondVector) {
+    for (int i = 0; i < firstVector.size; ++i) {
+        if (firstVector.elements[i] != secondVector.elements[i]) {
             return false;
         }
     }
@@ -72,7 +65,7 @@ int& Vector::operator[](int index) {
     return elements[index];
 }
 
-string Vector::toString() const {
+Vector::operator string () const {
     stringstream sout;
     sout << "(";
     for (int i = 0; i < size; ++i) {
@@ -83,4 +76,10 @@ string Vector::toString() const {
     }
     sout << ")";
     return sout.str();
+}
+
+Vector& Vector::operator= (const Vector& r) {
+    elements = r.elements;
+    size = r.size;
+    return *this;
 }

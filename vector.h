@@ -12,7 +12,7 @@ private:
 public:
     Vector();
     Vector(int n);
-    Vector(const Vector& other);
+    Vector(const Vector& secondVector);
     ~Vector();
 
     int getSize() const {return size;}
@@ -20,11 +20,12 @@ public:
     void setElement(int index, int value) {  elements[index] = value; }
     void setSize(int newSize) { size = newSize; }
 
-    Vector operator+(const Vector& other) const;
-    bool operator==(const Vector& other) const;
+    friend Vector operator+(const Vector& firstVector, const Vector& secondVector);
+    friend bool operator==(const Vector& firstVector, const Vector& secondVector);
     double norm() const;
     int& operator[](int index);
-    string toString() const;
+    operator string() const;
+    Vector& operator= (const Vector&);
 
     friend istream& operator>>(istream& in, Vector& vec);
     friend ostream& operator<<(ostream& out, const Vector& vec);

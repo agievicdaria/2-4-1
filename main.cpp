@@ -14,7 +14,7 @@ int main() {
     cout << "v2 = " << v2 << endl;
     
     Vector v3 = v1 + v2;
-    cout << "v3 = " << v3.toString() << endl;
+    cout << "v3 = " << v3 << endl;
 
     if (v1 == v2) {
         cout << "v1 and v2 are equal." << endl;
